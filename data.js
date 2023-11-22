@@ -6,7 +6,7 @@ export const symbolArray = [
     },
     {
         name: "middle",
-        components: ["3.png"],
+        components: ["2.png", "3.png"],
         id: 1
        
     },

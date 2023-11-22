@@ -19,6 +19,10 @@ document.addEventListener('DOMContentLoaded', function() {
     var currentWord = symbolArray[currentIndex].name;
     document.getElementById('wordgoal').textContent = `[ ${currentWord} ]`;
 }
+
+    if (window.location.pathname.endsWith('page2.html')) {
+        displayImagesBasedOnCurrentWord();
+    }
   if (window.location.pathname.endsWith('page3.html')) {
     var state = JSON.parse(localStorage.getItem('pageState'));
     if (state) {
@@ -56,6 +60,36 @@ if (submitBtn){
     } )
 }
 });
+
+function displayImagesBasedOnCurrentWord() {
+    // 获取当前单词的索引
+    const currentIndex = parseInt(localStorage.getItem('currentWordIndex')) || 0;
+
+    // 获取当前单词对象
+    const currentWordObject = symbolArray[currentIndex];
+
+    // 获取当前单词的图片列表
+    const imagesToDisplay = currentWordObject.components;
+
+    const imageContainer = document.getElementById('toolkit-area');
+
+    // 清除之前的内容
+    imageContainer.innerHTML = '';
+
+    // 为每个图片组件创建一个 img 元素并添加到容器中
+
+    imagesToDisplay.forEach(imageFileName => {
+        const imgElement = document.createElement('img');
+        imgElement.src = `images/${imageFileName}`;
+        imgElement.alt = imageFileName;
+        imgElement.classList.add('draggable');
+        imgElement.id =`comp${imageFileName[0]}` // 确保每个元素有一个唯一的ID
+        imageContainer.appendChild(imgElement);
+
+        // 为新元素设置拖拽事件
+        setupDraggable(imgElement);
+    });
+}
 
 function captureAndDownload(callback) {
   var canvasArea = document.getElementById('canvas-area');
@@ -121,12 +155,16 @@ function mouseMove(e) {
 document.getElementById('finishCreationButton').addEventListener('click', function() {
     var state = captureState();
     localStorage.setItem('pageState', JSON.stringify(state));
-    window.location.href = 'newpage.html'; // 新页面的 URL
+    window.location.href = 'page3.html'; // 新页面的 URL
 });
 
 function captureState() {
     var state = {};
     var draggables = document.querySelectorAll('.draggable');
+
+    var initialDraggables = document.querySelectorAll('.draggable');
+   
+    initialDraggables.forEach(setupDraggable);
     draggables.forEach(function(img) {
         state[img.id] = {
             left: img.style.left,
@@ -134,4 +172,18 @@ function captureState() {
         };
     });
     return state;
+}
+function setupDraggable(img) {
+    img.addEventListener('mousedown', function(e) {
+        if (delayDragging) {
+            return;
+        }
+        delayDragging = true;
+        setTimeout(function() {
+            delayDragging = false;
+        }, 200);
+
+        // 处理拖动逻辑
+        handleDrag(e, img);
+    });
 }

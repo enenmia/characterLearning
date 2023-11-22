@@ -144,7 +144,7 @@ h2{
   font-family: 'Noto Sans SC', sans-serif;
   font-weight: 100;
 }
-#reflectionText,#submitbutton {
+#reflectionText,#submitbutton,#whiteboard {
   position: absolute; /* 或者 `fixed`，视需要而定 */
 
   left: 50%;
@@ -162,4 +162,13 @@ h2{
   width: 300px;
   height: 60px;
   z-index: 40;
+}
+#whiteboard{
+  position: absolute; 
+  background-color: white;
+  border:red solid 1px;
+  z-index: 5;
+  height:800px;
+  width:350px;
+  top: 50%;
 }
