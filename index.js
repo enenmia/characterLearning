@@ -14,10 +14,11 @@ document.addEventListener('DOMContentLoaded', function() {
   var guidanceButton = document.getElementById('guidanceBtn'); 
   var finishCreationBtn = document.getElementById('finishCreationButton'); 
   var submitBtn = document.getElementById('submitbutton'); 
+
   if (window.location.pathname.endsWith('page1.html')) {
     var currentIndex = parseInt(localStorage.getItem('currentWordIndex')) || 0;
     var currentWord = symbolArray[currentIndex].name;
-    document.getElementById('wordgoal').textContent = `[ ${currentWord} ]`;
+    document.getElementById('wordgoal').textContent = `${currentWord}`;
 }
 
     if (window.location.pathname.endsWith('page2.html')) {
@@ -25,6 +26,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   if (window.location.pathname.endsWith('page3.html')) {
     var state = JSON.parse(localStorage.getItem('pageState'));
+
+    var currentIndex = parseInt(localStorage.getItem('currentWordIndex')) || 0;
+    var currentChinese = symbolArray[currentIndex].chinese;
+    document.getElementById('realcharacter').textContent=`${currentChinese}`;
+
     if (state) {
         Object.keys(state).forEach(function(id) {
             var img = document.getElementById(id);

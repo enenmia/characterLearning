@@ -166,7 +166,7 @@ h2{
 #whiteboard{
   position: absolute; 
   background-color: white;
-  border:red solid 1px;
+  /* border:red solid 1px; */
   z-index: 5;
   height:800px;
   width:350px;
