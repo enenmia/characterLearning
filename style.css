@@ -172,3 +172,22 @@ h2{
   width:350px;
   top: 50%;
 }
+#endpage{
+display: flex;
+justify-content: center;
+align-items: center;
+}
+#endpage {
+  display: flex; /* 启用 Flexbox 布局 */
+  flex-direction: column; /* 子元素垂直排列 */
+  justify-content: center; /* 在主轴（垂直）上居中对齐 */
+  align-items: center; /* 在交叉轴（水平）上居中对齐 */
+  height: 100vh; /* 设置容器高度为视口高度 */
+  text-align: center; /* 文本居中 */
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  text-align: center;
+}
+#restartButton{
+  margin-top:200px;
+}
