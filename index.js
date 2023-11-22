@@ -24,24 +24,31 @@ document.addEventListener('DOMContentLoaded', function() {
     if (window.location.pathname.endsWith('page2.html')) {
         displayImagesBasedOnCurrentWord();
     }
-  if (window.location.pathname.endsWith('page3.html')) {
+
+if (window.location.pathname.endsWith('page3.html')) {
     var state = JSON.parse(localStorage.getItem('pageState'));
 
     var currentIndex = parseInt(localStorage.getItem('currentWordIndex')) || 0;
     var currentChinese = symbolArray[currentIndex].chinese;
-    document.getElementById('realcharacter').textContent=`${currentChinese}`;
+    document.getElementById('realcharacter').textContent = `${currentChinese}`;
+
+    const imageContainer = document.getElementById('canvas-area');
+    imageContainer.innerHTML = ''; // 清除现有内容
 
     if (state) {
         Object.keys(state).forEach(function(id) {
-            var img = document.getElementById(id);
-            if (img) {
-                img.style.left = state[id].left;
-                img.style.top = state[id].top;
-                img.style.position = 'absolute';
-            }
+            const imgElement = document.createElement('img');
+            imgElement.id = id;
+            imgElement.classList.add('draggable');
+            imgElement.src = `images/${id.split('-').slice(1).join('.')}`; // 从id重建文件名
+            imgElement.style.left = state[id].left;
+            imgElement.style.top = state[id].top;
+            imgElement.style.position = 'absolute';
+            imageContainer.appendChild(imgElement);
         });
     }
 }
+
 
   if (guidanceButton) {
       guidanceButton.addEventListener('click', function() {
@@ -60,10 +67,19 @@ document.addEventListener('DOMContentLoaded', function() {
 if (submitBtn){
     submitBtn.addEventListener('click', function(){
         var currentIndex = parseInt(localStorage.getItem('currentWordIndex')) || 0;
-        var nextIndex = (currentIndex + 1) % symbolArray.length; // 循环到数组开始
-        localStorage.setItem('currentWordIndex', nextIndex);
-        window.location.href = 'page1.html';
-    } )
+        // var nextIndex = (currentIndex + 1) % symbolArray.length; 
+        var nextIndex = currentIndex + 1;
+
+        // 检查是否完成了所有单词
+        if (nextIndex >= symbolArray.length) {
+            // 如果完成了所有单词，跳转到结束界面
+            window.location.href = 'endpage.html';
+        } else {
+            // 否则，保存下一个单词的索引并跳转到page1.html
+            localStorage.setItem('currentWordIndex', nextIndex);
+            window.location.href = 'page1.html';
+        }
+    });
 }
 });
 
@@ -89,7 +105,9 @@ function displayImagesBasedOnCurrentWord() {
         imgElement.src = `images/${imageFileName}`;
         imgElement.alt = imageFileName;
         imgElement.classList.add('draggable');
-        imgElement.id =`comp${imageFileName[0]}` // 确保每个元素有一个唯一的ID
+        // imgElement.id =`comp${imageFileName}` // 确保每个元素有一个唯一的ID
+        imgElement.id = 'comp-' + imageFileName.replace('.', '-');
+
         imageContainer.appendChild(imgElement);
 
         // 为新元素设置拖拽事件
@@ -170,7 +188,7 @@ function captureState() {
 
     var initialDraggables = document.querySelectorAll('.draggable');
    
-    initialDraggables.forEach(setupDraggable);
+    // initialDraggables.forEach(setupDraggable);
     draggables.forEach(function(img) {
         state[img.id] = {
             left: img.style.left,
