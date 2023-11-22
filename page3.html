@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Page</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .draggable {
+            position: absolute; /* 为了使用绝对定位 */
+        }
+    </style>
+</head>
+<body>
+    <div class="flex-container">
+        <div id="realcharacter-area">
+            <p id="realcharacter">木</p>
+        </div>
+
+        <textarea id="reflectionText">Enter your reflection here...</textarea>
+        <button id="submitbutton" class="btn">submit & learn next character</button>
+        <div id="canvas-area">
+            <!-- 假设这些是拖拽的图片 -->
+            <img src="images/1.png" alt="Component 1" class="draggable" id="comp1">
+            <img src="images/2.png" alt="Component 2" class="draggable" id="comp2">
+            <img src="images/3.png" alt="Component 3" class="draggable" id="comp3">
+            <img src="images/4.png" alt="Component 4" class="draggable" id="comp4">
+        </div>
+
+    </div>
+
+    <script src="index.js">
+        document.addEventListener('DOMContentLoaded', function() {
+            var state = JSON.parse(localStorage.getItem('pageState'));
+            if (state) {
+                Object.keys(state).forEach(function(id) {
+                    var img = document.getElementById(id);
+                    if (img) {
+                        img.style.left = state[id].left;
+                        img.style.top = state[id].top;
+                        img.style.position = 'absolute';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
