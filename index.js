@@ -1,3 +1,5 @@
+import { symbolArray } from './data.js';
+
 var draggables = document.querySelectorAll('.draggable');
 var selectedElement = null;
 var offsetX, offsetY;
@@ -12,7 +14,11 @@ document.addEventListener('DOMContentLoaded', function() {
   var guidanceButton = document.getElementById('guidanceBtn'); 
   var finishCreationBtn = document.getElementById('finishCreationButton'); 
   var submitBtn = document.getElementById('submitbutton'); 
-
+  if (window.location.pathname.endsWith('page1.html')) {
+    var currentIndex = parseInt(localStorage.getItem('currentWordIndex')) || 0;
+    var currentWord = symbolArray[currentIndex].name;
+    document.getElementById('wordgoal').textContent = `[ ${currentWord} ]`;
+}
   if (window.location.pathname.endsWith('page3.html')) {
     var state = JSON.parse(localStorage.getItem('pageState'));
     if (state) {
@@ -26,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 }
+
   if (guidanceButton) {
       guidanceButton.addEventListener('click', function() {
           window.location.href = 'page2.html';
@@ -42,6 +49,9 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 if (submitBtn){
     submitBtn.addEventListener('click', function(){
+        var currentIndex = parseInt(localStorage.getItem('currentWordIndex')) || 0;
+        var nextIndex = (currentIndex + 1) % symbolArray.length; // 循环到数组开始
+        localStorage.setItem('currentWordIndex', nextIndex);
         window.location.href = 'page1.html';
     } )
 }
