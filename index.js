@@ -13,6 +13,19 @@ document.addEventListener('DOMContentLoaded', function() {
   var finishCreationBtn = document.getElementById('finishCreationButton'); 
   var submitBtn = document.getElementById('submitbutton'); 
 
+  if (window.location.pathname.endsWith('page3.html')) {
+    var state = JSON.parse(localStorage.getItem('pageState'));
+    if (state) {
+        Object.keys(state).forEach(function(id) {
+            var img = document.getElementById(id);
+            if (img) {
+                img.style.left = state[id].left;
+                img.style.top = state[id].top;
+                img.style.position = 'absolute';
+            }
+        });
+    }
+}
   if (guidanceButton) {
       guidanceButton.addEventListener('click', function() {
           window.location.href = 'page2.html';
