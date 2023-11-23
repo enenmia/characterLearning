@@ -1,7 +1,7 @@
 export const symbolArray = [
     {
         name: "wood",
-        components: ["3.png", "5.png", "10.png","11.png"],
+        components: ["3.png", "5.png", "16.png","17.png"],
         chinese:"木",
         id: 0
     },

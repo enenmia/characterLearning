@@ -22,7 +22,12 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 
     if (window.location.pathname.endsWith('page2.html')) {
+        var currentIndex = parseInt(localStorage.getItem('currentWordIndex')) || 0;
+        var currentWord = symbolArray[currentIndex].name;
+        var reminderPrompt = document.getElementById('reminder'); 
         displayImagesBasedOnCurrentWord();
+        reminderPrompt.textContent=`Create your symbol that means 「${currentWord}」.`
+
     }
 
 if (window.location.pathname.endsWith('page3.html')) {
@@ -113,6 +118,14 @@ function displayImagesBasedOnCurrentWord() {
         // 为新元素设置拖拽事件
         setupDraggable(imgElement);
     });
+    // imageContainer.innerHTML += `
+    // <div id="prompt">            
+    //     <div id="prompt-line1">
+    //         <p>Click and drag the component to </p>
+    //         <img src="images/canvas-small.png" id="canvas-small">
+    //     </div>
+    //     <p>to create your symbol means ‘wood’ </p>
+    // </div>`;
 }
 
 function captureAndDownload(callback) {

@@ -1,26 +1,3 @@
-/* .draggable {
-    width: 50px; 
-    height: auto;
-    margin: 10px;
-    cursor: grab;
-  }
-  
-  .draggable:active {
-    cursor: grabbing;
-  }
-  
-  #toolkit {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 20px;
-  }
-  #canvas {
-    min-height: 200px;
-    border: 1px dashed #aaa;
-    position: relative;
-  }
-   */
-
 
    .flex-container {
     display: flex;
@@ -86,6 +63,7 @@
   width:25rem;
   height: auto;
   margin: auto auto;
+  padding-top:50px;
 
 }
 .btn{
@@ -190,4 +168,29 @@ align-items: center;
 }
 #restartButton{
   margin-top:200px;
+}
+/* #prompt{
+  font-family: 'Montserrat', sans-serif;
+  position: absolute; 
+  top: 2%;
+  left:120%;
+  width: 300px;
+}
+#prompt-line1{
+  display: flex;
+  padding: -10px;
+}
+#canvas-small{
+  width:30px;
+  height: 30px;
+  margin-top:13px;
+  margin-left: 5px;
+}
+*/
+#finishCreationButton{
+  margin-top:50px;
+} 
+#reminder{
+  font-family: 'Montserrat', sans-serif;
+  margin:0;
 }
